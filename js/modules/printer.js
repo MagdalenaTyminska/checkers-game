@@ -26,7 +26,7 @@ export class Printer {
 }
 
 export class CheckersDOMPrinter extends Printer {
-  #developerMode = true; // Feature Flag
+  #developerMode = false; // Feature Flag
 
   #boardRef;
 
