@@ -17,6 +17,8 @@ export class Board {
     ['90', '91', '92', '93', '94', '95', '96', '97', '98', '99'],
   ];
 
+  #promotionRowByPlayerIndex = ['0', '9'];
+
   get fieldsList() {
     // tworzę kopię danych tylko do odczytu
     // nie chce pozwolić na modyfikację danych
@@ -162,6 +164,14 @@ export class Board {
 
     fieldTo.piece = fieldFrom.piece;
     fieldFrom.setEmpty();
+
+    const [rowTo] = to;
+    if (
+      this.#promotionRowByPlayerIndex[playerIndex] === rowTo &&
+      fieldTo.piece.name === 'checker'
+    ) {
+      fieldTo.changeToKing();
+    }
   }
 
   #isCorrectCoord = function (coord) {
