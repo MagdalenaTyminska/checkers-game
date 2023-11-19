@@ -138,6 +138,11 @@ export class CheckersGame extends Game {
     this.#renderPanel();
   }
 
+  isGameOver() {
+    const playerIndex = this.#getLastActivePlayerIndex();
+    return this.#board.countPlayerPieces((playerIndex + 1) % 2) === 0;
+  }
+
   getActivePlayer() {
     // nie mnóżmy zależności!
     return this._players[this.#getActivePlayerIndex()];
