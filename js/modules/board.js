@@ -174,6 +174,21 @@ export class Board {
     }
   }
 
+  countPlayerPieces(playerIndex) {
+    let count = 0;
+    for (let i = 0; i < this.#fieldsList.length; i++) {
+      // DRY
+      for (let j = 0; j < this.#fieldsList.length; j++) {
+        const field = this.getField(i + '' + j);
+        if (!field.isEmpty() && field.isPieceOwner(playerIndex)) {
+          count++;
+        }
+      }
+    }
+
+    return count;
+  }
+
   #isCorrectCoord = function (coord) {
     return /^[0-9]{2}$/i.test(coord);
   };
