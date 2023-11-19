@@ -95,19 +95,23 @@ export class Board {
         Move.getPathByMove(coord, move, playerIndex),
         playerIndex
       );
-
-      path.forEach(coord => {
-        const field = this.getField(coord);
-        if (field.isEmpty() && !coords.includes(coord)) {
-          coords.push(coord);
-        }
-      });
+      if (
+        !move.isCapture ||
+        this.#getCoordsOponentForCapture(path, playerIndex).length > 0
+      ) {
+        path.forEach(coord => {
+          const field = this.getField(coord);
+          if (field.isEmpty() && !coords.includes(coord)) {
+            coords.push(coord);
+          }
+        });
+      }
     });
 
     return coords;
   }
 
-  move(notation, playerIndex) {
+  move(notation, playerIndex, incrementScoreCallback) {
     const [from, to] = notation.split('-'); // 52-43 => from=52, to=43
     if (!this.#isCorrectCoord(from)) {
       throw new Error('Incorrect "from" coord');
@@ -133,12 +137,27 @@ export class Board {
     }
 
     const path = Move.getPathByCoords(from, to);
+    const coordsOponent = this.#getCoordsOponentForCapture(path, playerIndex);
+    const isCapture = coordsOponent.length > 0;
 
     const { piece } = fieldFrom;
     const inverse = !!playerIndex; // !!0 => false, !!1 => true
-    const move = piece.getMove(from, to, false, inverse);
+    const move = piece.getMove(from, to, isCapture, inverse);
     if (!move) {
       throw new Error('This move is not correct!');
+    }
+
+    if (isCapture) {
+      if (coordsOponent.length > 0) {
+        coordsOponent.forEach(coord => {
+          const field = this.getField(coord);
+          field.setEmpty();
+        });
+
+        incrementScoreCallback(coordsOponent.length);
+      } else {
+        throw new Error('There is not oponent piece');
+      }
     }
 
     fieldTo.piece = fieldFrom.piece;
@@ -164,5 +183,24 @@ export class Board {
     }
 
     return newPath;
+  }
+
+  #getCoordsOponentForCapture(path, playerIndex) {
+    const pathWithoutLast = path.slice(0, -1);
+
+    const coords = [];
+    pathWithoutLast.forEach((coord, index) => {
+      const field = this.getField(coord);
+      if (!field.isEmpty() && !field.isPieceOwner(playerIndex)) {
+        const nextField =
+          pathWithoutLast[index + 1] &&
+          this.getField(pathWithoutLast[index + 1]);
+        if (!nextField || nextField.isEmpty()) {
+          coords.push(coord);
+        }
+      }
+    });
+
+    return coords;
   }
 }
