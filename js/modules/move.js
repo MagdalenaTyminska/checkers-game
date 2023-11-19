@@ -83,7 +83,7 @@ export class Move {
     path.push(coordFrom); // tylko do obliczenia następnych współrzędnych
 
     for (let i = 0; i < Math.abs(rowFrom - rowTo); i++) {
-      const [cordLast] = path.slice(-1);
+      const [cordLast] = path.slice(-1); // ['62'] => cordLast = '62'
       const [rowLast, colLast] = cordLast;
 
       const rowCurr = Number(rowLast) + rowDirection;
@@ -91,31 +91,32 @@ export class Move {
       path.push(rowCurr + '' + colCurr);
     }
 
-    path.shift();
+    path.shift(); // usuwam pierwszy element tablicy
 
     return path;
   }
 
   static getPathByMove(coordFrom, move, inverse = false, limit = 10) {
+    // sporo tych parametrów :(
     const directions = {
-      forwardRight: [-1, +1],
+      forwardRight: [-1, +1], // podobnie jak wcześniej + IMO jest czytelniejszy
       forwardLeft: [-1, -1],
       backwardRight: [+1, +1],
       backwardLeft: [+1, -1],
     };
 
-    const path = [coordFrom];
+    const path = [coordFrom]; // potrzebuję punktu startowego do obliczeń (jak wcześniej)
     for (const key of Object.keys(directions)) {
       if (typeof move[key] !== 'undefined') {
         // DRY!!!
-        const count = move[key] || limit;
+        const count = move[key] || limit; // jeśli `move[key]=0` to ustaw `limit`
         for (let i = 0; i < count; i++) {
-          const [cordLast] = path.slice(-1);
+          const [cordLast] = path.slice(-1); // ['62'] => cordLast = '62'
           const [rowLast, colLast] = cordLast;
 
           let [rowDirection, colDirection] = directions[key];
           if (inverse) {
-            rowDirection *= -1;
+            rowDirection *= -1; // zmiana kierunku dla czarnych
             colDirection *= -1;
           }
 
@@ -128,17 +129,19 @@ export class Move {
             colCurr < 0 ||
             colCurr >= limit
           ) {
-            break;
+            break; // zakończ pętle for, przekroczyliśmy zakres
           }
 
           path.push(rowCurr + '' + colCurr);
         }
 
         break;
+        // uznaję, że ruch może być tylko w jedną stronę
+        // po pierwszym trafieniu nie potrzebuję kolejnych
       }
     }
 
-    path.shift();
+    path.shift(); // usuwam pierwszy element tablicy
     return path;
   }
 
@@ -187,6 +190,7 @@ export class Move {
     const distance = {};
     keys.forEach(key => {
       if (typeof this[key] !== 'undefined') {
+        // na polach prywatnych to nie zadziała!
         distance[key] = this[key];
       }
     });

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const printer = new CheckersDOMPrinter({ appContainerRef });
   const game = new CheckersGame({ board, printer });
 
-  const player1 = new Player('Magda');
+  const player1 = new Player('Mateusz');
   const player2 = new Player('Anna');
 
   // game.addPlayer(player1, CheckersGame.getStartingPositionForWhite());
