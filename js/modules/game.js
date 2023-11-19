@@ -143,6 +143,25 @@ export class CheckersGame extends Game {
     return this.#board.countPlayerPieces((playerIndex + 1) % 2) === 0;
   }
 
+  restart() {
+    const pieces = [
+      CheckersGame.getStartingPositionForWhite(),
+      CheckersGame.getStartingPositionForBlack(),
+    ];
+
+    this.#resetPiece();
+    this.#resetMoves();
+    this.#board.reset();
+    this._players.forEach((player, playerIndex) => {
+      player.score = 0;
+      this.#insertPiecesOnBoard(pieces[playerIndex], playerIndex);
+    });
+    this.#board.init();
+
+    this.#renderBoard();
+    this.#renderPanel();
+  }
+
   getActivePlayer() {
     // nie mnóżmy zależności!
     return this._players[this.#getActivePlayerIndex()];
@@ -153,6 +172,9 @@ export class CheckersGame extends Game {
   }
 
   /* poniżej abstrakcja */
+  #resetMoves() {
+    this.#moves = [];
+  }
 
   #resetPiece() {
     this.#selectedPiece = null;
