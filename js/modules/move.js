@@ -6,7 +6,6 @@ export class Move {
   #isCapture;
 
   static factory(settings) {
-    // YAGNI (Nie będziesz tego potrzebować, ang. You aren't gonna need it)
     return new Move(settings);
   }
 
@@ -22,9 +21,6 @@ export class Move {
     }
 
     const distance = {};
-    if (isCapture) {
-      distance.isCapture = true;
-    }
 
     if (row > 0) {
       if (col > 0) {
@@ -66,7 +62,7 @@ export class Move {
   }
 
   static getPathByCoords(coordFrom, coordTo) {
-    let rowDirection = +1; // to to samo co 1, ale IMO jest czytelniejsze
+    let rowDirection = +1;
     let colDirection = +1;
     const [rowFrom, colFrom] = coordFrom;
     const [rowTo, colTo] = coordTo;
@@ -97,9 +93,8 @@ export class Move {
   }
 
   static getPathByMove(coordFrom, move, inverse = false, limit = 10) {
-    // sporo tych parametrów :(
     const directions = {
-      forwardRight: [-1, +1], // podobnie jak wcześniej + IMO jest czytelniejszy
+      forwardRight: [-1, +1],
       forwardLeft: [-1, -1],
       backwardRight: [+1, +1],
       backwardLeft: [+1, -1],

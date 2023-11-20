@@ -1,5 +1,4 @@
 export class Printer {
-  // umowny interfejs (w JS nie ma takiej struktury)
   init(settings) {
     this.#throwError();
   }
@@ -26,7 +25,7 @@ export class Printer {
 }
 
 export class CheckersDOMPrinter extends Printer {
-  #developerMode = true; // Feature Flag
+  #developerMode = true; 
 
   #boardRef;
 
@@ -60,21 +59,14 @@ export class CheckersDOMPrinter extends Printer {
     });
   }
 
-  renderPanel({ activePlayerIndex, playersScore }) {
+  renderPanel({ activePlayerIndex }) {
     const { appContainerRef } = this.settings;
 
     const panelRef = appContainerRef.previousElementSibling;
 
-    // tworzę wygodną strukturę danych,
-    // która zastępuję if ... else
     const playersIcons = ['./assets/piece-white.svg', './assets/piece-red.svg'];
 
     panelRef.querySelector('img').src = playersIcons[activePlayerIndex];
-
-    playersScore.forEach((pScore, playerIndex) => {
-      // trzeba pamiętać o dodaniu tych klass do DOM tj. p0 oraz p1
-      panelRef.querySelector(`.p${playerIndex}`).innerText = pScore;
-    });
   }
 
   selectFields(coords) {

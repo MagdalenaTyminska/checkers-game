@@ -17,11 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const printer = new CheckersDOMPrinter({ appContainerRef });
   const game = new CheckersGame({ board, printer });
 
-  const player1 = new Player('Magda');
+  const player1 = new Player('Mateusz');
   const player2 = new Player('Anna');
-
-  // game.addPlayer(player1, CheckersGame.getStartingPositionForWhite());
-  // game.addPlayer(player2, CheckersGame.getStartingPositionForBlack());
 
   const player1Index = game.addPlayer(player1);
   const player2Index = game.addPlayer(player2);
@@ -34,19 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   game.init();
 
-  // docelowo zamieścic w CheckersDOMPrinter
   appContainerRef.addEventListener('click', e => {
     if (e.target.classList.contains('piece')) {
-      // zaznacz pionek
       const { coord } = e.target.parentElement.dataset;
       const { player: playerIndex } = e.target.dataset;
 
-      game.selectPiece(coord, +playerIndex); // znak + oznacza zamień na Number
+      game.selectPiece(coord, +playerIndex);
     } else if (
       e.target.classList.contains('cell') &&
       e.target.classList.contains('selected')
     ) {
-      // wykonaj ruch
       const { coord } = e.target.dataset;
       game.move(`${game.selectedPiece}-${coord}`);
     }
