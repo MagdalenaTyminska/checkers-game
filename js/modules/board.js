@@ -2,8 +2,6 @@ import { Field } from './field.js';
 import { Move } from './move.js';
 
 export class Board {
-  // 1. enkapsulacja
-  // 2. abstrakcja
   #fieldsList = [
     ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'],
     ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19'],
@@ -48,14 +46,6 @@ export class Board {
       }
     }
   }
-
-  // SOLID: zasada jednej odpowiedzialności (SRP)
-  // createBoard() {
-  //   const boardGrid = document.createElement("div");
-  //   boardGrid.id = "board";
-
-  //   this.boardRef.appendChild(boardGrid);
-  // }
 
   getField = function (coord) {
     if (!this.#isCorrectCoord(coord)) {
