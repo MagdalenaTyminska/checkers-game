@@ -19,7 +19,6 @@ export class Field {
 
   set piece(obj) {
     if ((!obj) instanceof Piece) {
-      // 4. polimorfizm
       throw new Error(`Incorrect argument`);
     }
 

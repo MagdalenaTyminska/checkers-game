@@ -2,11 +2,8 @@ import { Board } from './board.js';
 import { Printer } from './printer.js';
 
 export class Game {
-  // klasa abstrakcyjna
   _modules;
-  _players = []; // SOLID, reguła otwarte-zamknięte (OCP)
-  // #player1
-  // #player2
+  _players = [];
 
   _playersMinimum = 0;
   _playersLimit = 0;
@@ -34,11 +31,11 @@ export class Game {
 }
 
 export class CheckersGame extends Game {
-  // 3. dziedziczenie
+  // dziedziczenie
   _playersMinimum = 2;
   _playersLimit = 2;
 
-  #board; //SOLID: zasada rozdzielania interfejsów (ISP)
+  #board;
   #printer;
   #moves = [];
 
@@ -62,7 +59,6 @@ export class CheckersGame extends Game {
   }
 
   static getStartingPositionForWhite(boardSize = 10, rowsCount = 4) {
-    // DRY (Nie powtarzaj się, ang. Don't Repeat Yourself)
     const coords = {};
     for (let i = boardSize - rowsCount; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
@@ -84,7 +80,6 @@ export class CheckersGame extends Game {
     this.#board = board;
 
     if (!(printer instanceof Printer)) {
-      // SOLID: zasada odwrócenia zależności (DIP)
       throw new Error('Invalid argument type!');
     }
     this.#printer = printer;
@@ -171,7 +166,6 @@ export class CheckersGame extends Game {
     return this._players[this.#getLastActivePlayerIndex()];
   }
 
-  /* poniżej abstrakcja */
   #resetMoves() {
     this.#moves = [];
   }
@@ -207,7 +201,6 @@ export class CheckersGame extends Game {
   }
 
   #getPlayersScore() {
-    // bardzo podobna nazwa do getPlayer[s]Score() - unikamy
     return this._players.map(player => player.score);
   }
 
