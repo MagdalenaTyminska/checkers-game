@@ -1,7 +1,7 @@
 import { Move } from './move.js';
 
 export class Piece {
-  _player; 
+  _player; // pole chronione (zamierzamy wykorzystać w dziecku)
 
   constructor(playerIndex) {
     this.player = playerIndex;
@@ -12,6 +12,7 @@ export class Piece {
   }
 
   set player(value) {
+    // wsteczna kompatybliność
     this._player = value;
   }
 
