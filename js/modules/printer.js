@@ -1,5 +1,4 @@
 export class Printer {
-  // umowny interfejs (w JS nie ma takiej struktury)
   init(settings) {
     this.#throwError();
   }
@@ -26,7 +25,7 @@ export class Printer {
 }
 
 export class CheckersDOMPrinter extends Printer {
-  #developerMode = true; // Feature Flag
+  #developerMode = true; 
 
   #boardRef;
 

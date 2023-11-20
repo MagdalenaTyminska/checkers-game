@@ -66,9 +66,9 @@ aside p {
 
 #board {
   display: grid;
-  grid-template-columns: repeat(10, 70px); /* Updated for 10 columns */
-  width: 732px; /* Updated width for 10 squares */
-  height: 732px; /* Updated width for 10 squares */
+  grid-template-columns: repeat(10, 70px);
+  width: 732px;
+  height: 732px;
   border: 16px solid #1c1c1c;
 }
 
@@ -77,7 +77,6 @@ aside p {
   height: 70px;
 }
 
-/* Alternating pattern for odd rows */
 #board > div:nth-child(odd):nth-child(-n + 10),
 #board > div:nth-child(even):nth-child(n + 11):nth-child(-n + 20),
 #board > div:nth-child(odd):nth-child(n + 21):nth-child(-n + 30),
@@ -91,7 +90,6 @@ aside p {
   background-color: #e7c673;
 }
 
-/* Alternating pattern for even rows */
 #board > div:nth-child(even):nth-child(-n + 10),
 #board > div:nth-child(odd):nth-child(n + 11):nth-child(-n + 20),
 #board > div:nth-child(even):nth-child(n + 21):nth-child(-n + 30),
@@ -104,32 +102,31 @@ aside p {
 #board > div:nth-child(odd):nth-child(n + 91):nth-child(-n + 100) {
   background-color: #e1ab1f;
 }
-.cell.selected, /* MB */
+.cell.selected,
 .active-field {
   border: 2px solid #1c1c1c;
 }
 
 .piece {
-  /* MB */
   height: 100%;
 }
 
-.checker.p1, /* MB */
+.checker.p1,
 .piece__red {
   background: url('./assets/piece-red.svg') no-repeat center;
 }
 
-.checker.p0, /* MB */
+.checker.p0,
 .piece__white {
   background: url('./assets/piece-white.svg') no-repeat center;
 }
 
-.king.p1, /* MB */
+.king.p1,
 .king__red {
   background: url('./assets/piece-red-king.svg') no-repeat center;
 }
 
-.king.p0, /* MB */
+.king.p0,
 .king__white {
   background: url('./assets/piece-white-king.svg') no-repeat center;
 }
@@ -147,7 +144,6 @@ aside p {
 }
 
 .coord {
-  /* mb */
   position: absolute;
   left: 0;
   top: 0;
