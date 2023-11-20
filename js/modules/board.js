@@ -1,8 +1,7 @@
 import { Field } from './field.js';
 
 export class Board {
-  // 1. enkapsulacja
-  // 2. abstrakcja
+  // # - prywatne pole
   #fieldsList = [
     ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'],
     ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19'],
@@ -19,9 +18,7 @@ export class Board {
   get fieldsList() {
     // tworzę kopię danych tylko do odczytu
     // nie chce pozwolić na modyfikację danych
-    // poza udostępnionym interfejsem np:
-    // const fieldsList = board.fieldsList
-    // fieldsList[0][0] = new Field();
+    // poza udostępnionym interfejsem
     const fieldsList = this.#fieldsList.map(row => {
       return Object.freeze([...row]);
     });
@@ -46,20 +43,12 @@ export class Board {
     }
   }
 
-  // SOLID: zasada jednej odpowiedzialności (SRP)
-  // createBoard() {
-  //   const boardGrid = document.createElement("div");
-  //   boardGrid.id = "board";
-
-  //   this.boardRef.appendChild(boardGrid);
-  // }
-
   getField = function (coord) {
     if (!this.#isCorrectCoord(coord)) {
       throw new Error('Incorrect coords!');
     }
 
-    const [rowIndex, colIndex] = coord;
+    const [rowIndex, colIndex] = coord; // '34' => rowIndex = '3', colIndex = '4
     return this.#fieldsList[rowIndex][colIndex];
   };
 

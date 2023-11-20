@@ -5,7 +5,6 @@ export class Player {
     this.name = name;
   }
 
-  // metody/właściwości dostępowe
   get name() {
     return this.#name;
   }
