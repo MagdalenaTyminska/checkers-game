@@ -31,7 +31,7 @@ export class Game {
 }
 
 export class CheckersGame extends Game {
-  // 3. dziedziczenie
+  // dziedziczenie
   _playersMinimum = 2;
   _playersLimit = 2;
 
